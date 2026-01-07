@@ -76,6 +76,16 @@ def analyze_sentiment():
             result = response.json()
             content = result['choices'][0]['message']['content']
             
+            # Rimuovi markdown code blocks se presenti
+            content = content.strip()
+            if content.startswith('```'):
+                # Rimuovi ```json o ``` all'inizio
+                content = content.split('\n', 1)[1] if '\n' in content else content[3:]
+            if content.endswith('```'):
+                # Rimuovi ``` alla fine
+                content = content.rsplit('```', 1)[0]
+            content = content.strip()
+            
             # Prova a estrarre JSON dalla risposta
             try:
                 sentiment_data = json.loads(content)
@@ -84,7 +94,8 @@ def analyze_sentiment():
                 sentiment_data = {
                     'stance': 'NEUTRAL',
                     'score': 0,
-                    'conclusion': content[:200]
+                    'conclusion': content[:200]                    'conclusion': content[:200]
+                }
                 }
             
             return sentiment_data
