@@ -43,8 +43,8 @@ except ImportError:
     sys.exit(1)
 
 # Model da usare
-MODEL = os.getenv('OPENAI_MODEL', 'gpt-4o-mini').strip() or 'gpt-4o-mini'print(f"Model used: {MODEL}")
-
+MODEL = os.getenv('OPENAI_MODEL', 'gpt-4o-mini').strip() or 'gpt-4o-mini'
+print(f"Model used: {MODEL}")
 def fetch_rss_news():
     """Recupera news dai feed RSS"""
     feeds = [
