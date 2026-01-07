@@ -1,0 +1,46 @@
+name: Daily Sentiment Signal
+
+on:
+  schedule:
+    # Esecuzione alle 17:30 CET (16:30 UTC in inverno, 15:30 UTC in estate)
+    # GitHub Actions usa UTC, quindi 16:30 UTC = 17:30 CET (ora solare)
+    - cron: '30 16 * * *'
+  
+  # Permette di eseguire manualmente il workflow da GitHub UI
+  workflow_dispatch:
+
+jobs:
+  send-signal:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run sentiment analysis and send email
+        env:
+          # Secrets configurati nelle impostazioni del repository
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        run: |
+          python send_signal_email.py
+      
+      - name: Log completion
+        if: always()
+        run: |
+          echo "Workflow completato alle $(date)"
