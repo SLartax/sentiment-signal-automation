@@ -51,8 +51,7 @@ def analyze_sentiment():
     }
     
     payload = {
-        'model': os.getenv('OPENAI_MODEL', 'gpt-4o-mini'),
-        'messages': [
+        'model': os.getenv('OPENAI_MODEL') or 'gpt-4o-mini',        'messages': [
             {
                 'role': 'system',
                 'content': 'Analizza il sentiment di mercato e fornisci una risposta in formato JSON con: stance (RISK-ON/RISK-OFF/NEUTRAL), score (-100 a 100), conclusion (breve)'
