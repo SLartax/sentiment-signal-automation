@@ -96,7 +96,6 @@ def analyze_sentiment():
                     'score': 0,
                     'conclusion': content[:200]                    'conclusion': content[:200]
                 }
-                }
             
             return sentiment_data
         else:
