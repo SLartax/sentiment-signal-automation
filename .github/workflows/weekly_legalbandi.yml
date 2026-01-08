@@ -1,0 +1,46 @@
+name: Weekly LegalBandi Monitor
+
+on:
+  schedule:
+    # Esecuzione ogni mercoledì alle 10:00 CET (09:00 UTC in inverno, 08:00 UTC in estate)
+    # GitHub Actions usa UTC, quindi 09:00 UTC = 10:00 CET (ora solare)
+    - cron: '0 9 * * 3'
+  
+  # Permette di eseguire manualmente il workflow da GitHub UI
+  workflow_dispatch:
+
+jobs:
+  scan-legal-tenders:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run LegalBandi monitor and send email
+        env:
+          # Secrets configurati nelle impostazioni del repository
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          EMAIL_FROM: ${{ secrets.SENDER_EMAIL }}
+          EMAIL_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          EMAIL_TO_LEGAL: studiolegaleartax.it
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        run: |
+          python legalbandi_monitor.py
+      
+      - name: Log completion
+        if: always()
+        run: |
+          echo "Workflow completato alle $(date)"
