@@ -282,6 +282,5 @@ def main():
         print("Analisi completata comunque con successo")
     
     return 0
-
 if __name__ == '__main__':
     sys.exit(main())
