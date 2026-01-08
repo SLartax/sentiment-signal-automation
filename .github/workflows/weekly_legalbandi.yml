@@ -34,7 +34,7 @@ jobs:
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
           EMAIL_FROM: ${{ secrets.SENDER_EMAIL }}
           EMAIL_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
-          EMAIL_TO_LEGAL: studiolegaleartax.it
+          EMAIL_TO_LEGAL: studiolegaleartax@gmail.com
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
         run: |
