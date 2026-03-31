@@ -1,5 +1,5 @@
 name: Daily Sentiment Signal
-
+  
 on:
   schedule:
     # Esecuzione alle 17:30 CET (16:30 UTC in inverno, 15:30 UTC in estate)
