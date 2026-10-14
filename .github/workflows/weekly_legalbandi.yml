@@ -9,6 +9,9 @@ on:
   # Permette di eseguire manualmente il workflow da GitHub UI
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   scan-legal-tenders:
     runs-on: ubuntu-latest
