@@ -254,6 +254,9 @@ def send_email_report(bandi_pertinenti, total_found):
 
 def main():
     """Funzione principale"""
+    if os.getenv("ARTAX_LEGALBANDI_ENABLED", "0") != "1":
+        print("LegalBandi GitHub disattivato su richiesta 2026-10-14; nessuna email inviata.")
+        return 0
     print(f"\n🔍 LegalBandi Monitor - Avvio scansione {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("\n[1/3] Recupero bandi da fonti online...")
     
