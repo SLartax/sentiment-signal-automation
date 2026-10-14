@@ -211,6 +211,9 @@ def send_email_signal(sentiment_data, news_count, events_count, chart_bytes):
 
 def main():
     """Funzione principale"""
+    if os.getenv("ARTAX_SENTIMENT_EMAIL_ENABLED", "0") != "1":
+        print("Sentiment Signal disattivato su richiesta 2026-10-14; nessuna email inviata.")
+        return 0
     print(f"\nAvvio analisi sentiment - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("\n[1/4] Fetching RSS news...")
     news = fetch_rss_news()
