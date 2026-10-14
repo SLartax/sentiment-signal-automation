@@ -1,12 +1,8 @@
 name: Daily Sentiment Signal
   
+# DISABLED: automatic sentiment emails stopped by user request (2026-10-14).
+# The LegalBandi workflow in this same repo remains unchanged.
 on:
-  schedule:
-    # Esecuzione alle 17:30 CET (16:30 UTC in inverno, 15:30 UTC in estate)
-    # GitHub Actions usa UTC, quindi 16:30 UTC = 17:30 CET (ora solare)
-    - cron: '30 16 * * *'
-  
-  # Permette di eseguire manualmente il workflow da GitHub UI
   workflow_dispatch:
 
 permissions:
