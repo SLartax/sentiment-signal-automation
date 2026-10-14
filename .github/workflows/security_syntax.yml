@@ -1,0 +1,18 @@
+name: Security Syntax Check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python-syntax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source (no application secrets)
+        uses: actions/checkout@v4
+      - name: Verify Python syntax without running code
+        run: python3 -m py_compile send_signal_email.py legalbandi_monitor.py
