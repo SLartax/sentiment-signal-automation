@@ -1,12 +1,8 @@
 name: Weekly LegalBandi Monitor
 
+# DISABLED by owner request on 2026-10-14.
+# Schedule removed and job hard-stopped; source and secrets preserved.
 on:
-  schedule:
-    # Esecuzione ogni mercoledì alle 10:00 CET (09:00 UTC in inverno, 08:00 UTC in estate)
-    # GitHub Actions usa UTC, quindi 09:00 UTC = 10:00 CET (ora solare)
-    - cron: '0 9 * * 3'
-  
-  # Permette di eseguire manualmente il workflow da GitHub UI
   workflow_dispatch:
 
 permissions:
@@ -14,6 +10,7 @@ permissions:
 
 jobs:
   scan-legal-tenders:
+    if: ${{ false }} # disabled, manual runs cannot execute
     runs-on: ubuntu-latest
     
     steps:
